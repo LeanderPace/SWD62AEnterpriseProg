@@ -14,4 +14,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingCart.domain\ShoppingCart.domain.csproj" />
+  </ItemGroup>
+
 </Project>
