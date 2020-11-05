@@ -19,7 +19,7 @@ namespace ShoppingCart.data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NEWIDte()");
+            modelBuilder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
         }
     }
 }
