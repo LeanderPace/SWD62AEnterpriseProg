@@ -42,7 +42,7 @@ namespace Presentation
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            DependencyContainer.RegisterServices(services);
+            DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("Default Connection"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
