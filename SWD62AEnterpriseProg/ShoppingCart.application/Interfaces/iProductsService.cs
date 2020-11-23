@@ -20,6 +20,6 @@ namespace ShoppingCart.application.Interfaces
 
         //void RateProduct(Guid id, string comment, double rating);
 
-
+        ProductViewModel GetProduct(Guid id);
     }
 }
