@@ -1,10 +1,12 @@
 ﻿using ShoppingCart.application.Interfaces;
 using ShoppingCart.application.ViewModels;
+using ShoppingCart.data.Models;
 using ShoppingCart.domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 
 namespace ShoppingCart.application.Services
 {
@@ -45,6 +47,19 @@ namespace ShoppingCart.application.Services
             myViewModel.Category.Name = productFromDb.Category.Name;
 
             return myViewModel;
+        }
+
+        public void AddProduct(ProductViewModel data)
+        {
+            Product p = new Product();
+
+            p.Description = data.Description;
+            p.ImageUrl = data.ImageUrl;
+            p.Name = data.Name;
+            p.Price = data.Price;
+            p.CategoryId = data.Category.Id;
+
+            _productRepo.AddProduct(p);
         }
     }
 }
