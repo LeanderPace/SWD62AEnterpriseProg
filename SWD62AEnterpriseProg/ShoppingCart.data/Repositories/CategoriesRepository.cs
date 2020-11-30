@@ -1,17 +1,25 @@
-﻿using ShoppingCart.data.Models;
+﻿using ShoppingCart.data.Context;
+using ShoppingCart.data.Models;
 using ShoppingCart.domain.Interfaces;
-using System;
+using ShoppingCart.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShoppingCart.data.Repositories
+namespace ShoppingCart.Data.Repositories
 {
-    class CategoriesRepository : iCategoriesRespository
+    public class CategoriesRepository : iCategoriesRepository
     {
-        public IQueryable<Category> GetCategory()
+        private ShoppingCarDBContext _context;
+
+        public CategoriesRepository(ShoppingCarDBContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public IQueryable<Category> GetCategories()
+        {
+            return _context.Categories;
         }
     }
 }

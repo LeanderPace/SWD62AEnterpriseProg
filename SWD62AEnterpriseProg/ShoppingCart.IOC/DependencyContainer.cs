@@ -2,8 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using ShoppingCart.application.Interfaces;
 using ShoppingCart.application.Services;
+using ShoppingCart.Application.Interfaces;
+using ShoppingCart.Application.Services;
 using ShoppingCart.data.Context;
 using ShoppingCart.data.Repositories;
+using ShoppingCart.Data.Repositories;
 using ShoppingCart.domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,6 +28,9 @@ namespace ShoppingCart.IOC
 
             services.AddScoped<iProductsRepository, ProductsRepository>();
             services.AddScoped<iProductsService, ProductsService>();
+
+            services.AddScoped<iCategoriesRepository, CategoriesRepository>();
+            services.AddScoped<iCategoriesService, CategoriesService>();
         }
     }
 }

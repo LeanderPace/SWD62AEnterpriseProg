@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.application.Interfaces;
 using ShoppingCart.application.Services;
 using ShoppingCart.application.ViewModels;
+using ShoppingCart.Application.Interfaces;
 
 namespace Presentation.Controllers
 {
     public class ProductsController : Controller
     {
         private iProductsService _productsService;
-        public ProductsController(iProductsService productsService)
+        private iCategoriesService _categoriesService;
+        public ProductsController(iProductsService productsService, iCategoriesService categoriesService)
         {
             _productsService = productsService;
+            _categoriesService = categoriesService;
         }
 
         public IActionResult Index()
@@ -38,6 +41,10 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var catlist = _categoriesService.GetCategories();
+
+            ViewBag.Categories = catlist;
+
             return View();
         }
 
@@ -56,6 +63,13 @@ namespace Presentation.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult Delete (Guid id)
+        {
+            _productsService.DeleteProduct(id);
+            ViewData["feedback"] = "Product was deleted Successfully"; // TempData
+            return RedirectToAction("Index");
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShoppingCart.domain.Interfaces
+namespace ShoppingCart.Domain.Interfaces
 {
-    public interface iCategoriesRespository
+    public interface iCategoriesRepository
     {
-        IQueryable<Category> GetCategory();
+        IQueryable<Category> GetCategories();
     }
 }

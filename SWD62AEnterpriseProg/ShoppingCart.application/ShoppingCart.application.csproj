@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingCart.data\ShoppingCart.data.csproj" />
     <ProjectReference Include="..\ShoppingCart.domain\ShoppingCart.domain.csproj" />
   </ItemGroup>
 
