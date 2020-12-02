@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.application.Interfaces;
 using ShoppingCart.application.Services;
@@ -14,10 +16,12 @@ namespace Presentation.Controllers
     {
         private iProductsService _productsService;
         private iCategoriesService _categoriesService;
-        public ProductsController(iProductsService productsService, iCategoriesService categoriesService)
+        private IWebHostEnvironment _env;
+        public ProductsController(iProductsService productsService, iCategoriesService categoriesService, IWebHostEnvironment env)
         {
             _productsService = productsService;
             _categoriesService = categoriesService;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -49,18 +53,38 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel data)
+        public IActionResult Create(ProductViewModel data, IFormFile file)
         {
             try
             {
+                if(file != null)
+                {
+                    if(file.Length > 0)
+                    {
+                        string newFileName = Guid.NewGuid() + System.IO.Path.GetExtension(file.FileName);
+                        string absolutePath = _env.WebRootPath + @"\Images\";
+
+                        using (var stream = System.IO.File.Create(absolutePath + newFileName))
+                        {
+                            file.CopyTo(stream);
+                        }
+
+                        data.ImageUrl = @"\Images\" + newFileName; // relative path
+                    }
+                }
+
                 _productsService.AddProduct(data);
 
                 ViewData["feedback"] = "Product was added successfully";
+                ModelState.Clear();
             }
             catch(Exception ex)
             {
                 //log errors
             }
+
+            var catList = _categoriesService.GetCategories();
+            ViewBag.Categories = catList;
 
             return View();
         }
