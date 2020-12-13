@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ShoppingCart.domain.Models
+namespace ShoppingCart.application.ViewModels
 {
-    public class Member
+    public class MembersViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        [Key]
         public string Email { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using ShoppingCart.Application.Interfaces;
 
 namespace Presentation.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private iProductsService _productsService;
@@ -43,6 +45,8 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")] // Authorise vs Authorisez(Roles="Admin")
+                                     // Authorise authorises anyone who is logged in, Authorise(Roles="Admin") authorises only admins
         public IActionResult Create()
         {
             var catlist = _categoriesService.GetCategories();
@@ -53,6 +57,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(ProductViewModel data, IFormFile file)
         {
             try
